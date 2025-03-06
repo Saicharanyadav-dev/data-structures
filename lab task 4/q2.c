@@ -1,61 +1,35 @@
 #include <stdio.h>
-
-void swap(int *a, int *b) {
-  int t = *a;
-  *a = *b;
-  *b = t;
-}
-
-int part(int arr[], int si, int ei) {
-  
-  int pivot = arr[ei];
-  
-  int i = (si - 1);
-
-  for (int j = si; j < ei; j++) {
-    if (arr[j] <= pivot) {
-
-      i++;
-
-      swap(&arr[i], &arr[j]);
+#include <stdlib.h>
+struct node
+{
+    int data;
+    struct node *next;
+};
+int main()
+{
+    struct node *head, *temp, *nnode;
+    head = 0;
+    int choice = 1;
+    while (choice)
+    {
+        nnode = (struct node *)malloc(sizeof(struct node));
+        printf("Enter data:\n");
+        scanf("%d", &nnode->data);
+        nnode->next = 0;
+        if (head == 0)
+            head = temp = nnode;
+        else
+        {
+            temp->next = nnode;
+            temp = nnode;
+        }
+        printf("Press 1 to continue and 0 to exit:\n");
+        scanf("%d", &choice);
     }
-  }
-
-  swap(&arr[i + 1], &arr[ei]);
-  
-  return (i + 1);
-}
-
-void qsort(int arr[], int si, int ei) {
-  if (si < ei) {
-
-    int pi = part(arr, si, ei);
-
-    qsort(arr, si, pi - 1);
-
-    qsort(arr, pi + 1, ei);
-  }
-}
-
-
-int main() {
-  int arr[] = {6,3,4,11,22,7,8,16};
-  
-  int n = sizeof(arr) / sizeof(arr[0]);
-  
-  printf("Unsorted array\n");
-    for (int i = 0; i < n; ++i) {
-    printf("%d  ", arr[i]);
-  }
-  
-  printf("\n");
-  printf("\n");
-
-  qsort(arr, 0, n - 1);
-  
-  printf("Sorted array in ascending order: \n");
-    for (int i = 0; i < n; ++i) {
-    printf("%d  ", arr[i]);
-  }
-  printf("\n");
+    temp = head;
+    while (temp != 0)
+    {
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
 }
